@@ -1,155 +1,321 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>연애 유형 검사 - F / S · A / C · N / R · D / M</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 연애 스타일 테스트</title>
+    <style>
+        :root {
+            --primary-color: #ff6b81;
+            --secondary-color: #f7f1e3;
+            --text-color: #2f3542;
+            --bg-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background-color: #fce4ec;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: var(--bg-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .section-title {
+            background-color: var(--secondary-color);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #dfa429;
+            text-align: center;
+        }
+
+        .question-card {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .question-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center; /* 질문도 가운데 정렬 */
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center; /* 답변 텍스트 가운데 정렬 */
+            font-size: 0.95rem;
+            word-break: keep-all; /* 단어 단위 줄바꿈 */
+        }
+
+        .option-btn:hover {
+            background-color: #fff0f3;
+            border-color: #ffb6c1;
+        }
+
+        .option-btn.selected {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        #submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        #submit-btn:hover {
+            background-color: #ff4757;
+        }
+
+        #result-area {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px dashed #ddd;
+        }
+
+        .result-type {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .result-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .result-desc b {
+            color: var(--primary-color);
+        }
+
+        .restart-btn {
+            background-color: #747d8c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div class="app">
-    <header class="header">
-      <h1>연애 유형 검사 💘</h1>
-      <p class="subtitle">
-        F/S · A/C · N/R · D/M 네 가지 축으로 나의 연애 스타일 알아보기
-      </p>
-    </header>
 
-    <main>
-      <section class="quiz">
+<div class="container">
+    <h1>💘 연애 스타일 테스트</h1>
+    <p class="intro">20개의 질문을 통해 나의 연애 DNA를 확인해보세요!</p>
 
-        <!-- 1. F / S -->
-        <div class="question">
-          <h2>1️⃣ F / S — First Move vs Slow Move</h2>
-          <p class="question-desc">연애 시작 속도·표현 방식</p>
-
-          <label class="option">
-            <input type="radio" name="FS" value="F" />
-            <div class="option-box">
-              <span class="badge">F</span>
-              <div class="option-text">
-                <strong>First Move (Fast)</strong>
-                <p>빠르게 호감 표현, 먼저 연락/고백 잘함</p>
-              </div>
-            </div>
-          </label>
-
-          <label class="option">
-            <input type="radio" name="FS" value="S" />
-            <div class="option-box">
-              <span class="badge">S</span>
-              <div class="option-text">
-                <strong>Slow Move (Slow)</strong>
-                <p>천천히 알아가며 안전하게 다가감</p>
-              </div>
-            </div>
-          </label>
+    <div id="quiz-container">
         </div>
 
-        <!-- 2. A / C -->
-        <div class="question">
-          <h2>2️⃣ A / C — Affection vs Coolness</h2>
-          <p class="question-desc">애정 표현 스타일</p>
+    <button id="submit-btn" onclick="calculateResult()">결과 확인하기</button>
 
-          <label class="option">
-            <input type="radio" name="AC" value="A" />
-            <div class="option-box">
-              <span class="badge">A</span>
-              <div class="option-text">
-                <strong>Affection (Affectionate)</strong>
-                <p>자주 표현, 따뜻함, 스킨십 적극</p>
-              </div>
-            </div>
-          </label>
+    <div id="result-area">
+        <h2>당신의 연애 유형은?</h2>
+        <div class="result-type" id="type-display">WAIT...</div>
+        <div class="result-desc" id="desc-display"></div>
+        <button class="restart-btn" onclick="location.reload()">다시 하기</button>
+    </div>
+</div>
 
-          <label class="option">
-            <input type="radio" name="AC" value="C" />
-            <div class="option-box">
-              <span class="badge">C</span>
-              <div class="option-text">
-                <strong>Coolness (Cool)</strong>
-                <p>표현 신중, 과한 스킨십 부담, 담담한 스타일</p>
-              </div>
-            </div>
-          </label>
-        </div>
+<script>
+    // 질문 데이터 (섹션 제목에서 알파벳 표기 제거)
+    const sections = [
+        { id: 'FS', title: '1️⃣ 연애 시작 속도 & 호감 표현' },
+        { id: 'AC', title: '2️⃣ 애정 표현 스타일' },
+        { id: 'NR', title: '3️⃣ 관계의 거리감' },
+        { id: 'DM', title: '4️⃣ 결정 방식 & 리드 성향' }
+    ];
 
-        <!-- 3. N / R -->
-        <div class="question">
-          <h2>3️⃣ N / R — Needs vs Respect</h2>
-          <p class="question-desc">관계 내 거리감·자유도</p>
+    const questions = [
+        // F vs S
+        { section: 0, q: "누군가 마음에 들 때 나는?", a: "F", a_txt: "먼저 연락하거나 표현해본 적이 많다.", b: "S", b_txt: "먼저 다가가기보다 상대 움직임을 기다린다." },
+        { section: 0, q: "새로운 관계, 친해지는 속도는?", a: "F", a_txt: "느낌 오면 금방 친해진다.", b: "S", b_txt: "편해지기까지 시간이 꽤 걸린다." },
+        { section: 0, q: "호감이 생기면?", a: "F", a_txt: "티가 빠르게 드러난다.", b: "S", b_txt: "티가 나도 숨기거나 조심한다." },
+        { section: 0, q: "소개팅이나 첫 만남 후에는?", a: "F", a_txt: "바로 다음 만남을 잡고 싶다.", b: "S", b_txt: "좀 더 분위기 보고 조심스럽게 연락한다." },
+        { section: 0, q: "썸 단계에서 나는?", a: "F", a_txt: "나를 먼저 보여주는 편이다.", b: "S", b_txt: "신중하게 알아가며 천천히 연다." },
 
-          <label class="option">
-            <input type="radio" name="NR" value="N" />
-            <div class="option-box">
-              <span class="badge">N</span>
-              <div class="option-text">
-                <strong>Needs you</strong>
-                <p>연락 중요, 자주 함께 있어야 안정</p>
-              </div>
-            </div>
-          </label>
+        // A vs C
+        { section: 1, q: "평소 감정 표현은?", a: "A", a_txt: "좋아하면 말/행동으로 자주 표현한다.", b: "C", b_txt: "표현은 적은 편이고 은근한 행동으로 보여준다." },
+        { section: 1, q: "스킨십에 대한 생각은?", a: "A", a_txt: "스킨십이 자연스럽고 편하다.", b: "C", b_txt: "스킨십은 관계가 안정돼야 편해진다." },
+        { section: 1, q: "연락 스타일은?", a: "A", a_txt: "자주 안부 묻고 대화 이어가는 걸 좋아한다.", b: "C", b_txt: "필요한 순간·할 말 있을 때만 연락한다." },
+        { section: 1, q: "연인에게 애정 표현은?", a: "A", a_txt: "칭찬·애정 말을 자주 한다.", b: "C", b_txt: "말보다 행동으로 챙겨주는 타입이다." },
+        { section: 1, q: "감정 변화가 생길 때?", a: "A", a_txt: "기쁘면 티나고 슬프면 티나고 변화가 보인다.", b: "C", b_txt: "감정이 있어도 크게 드러내지 않는다." },
 
-          <label class="option">
-            <input type="radio" name="NR" value="R" />
-            <div class="option-box">
-              <span class="badge">R</span>
-              <div class="option-text">
-                <strong>Respect space</strong>
-                <p>각자 시간 중요, 독립적 연애</p>
-              </div>
-            </div>
-          </label>
-        </div>
+        // N vs R
+        { section: 2, q: "연락 빈도에 대해?", a: "N", a_txt: "매일 꾸준한 연락이 안정감을 준다.", b: "R", b_txt: "연락 텀이 좀 있어도 불안하지 않다." },
+        { section: 2, q: "함께하는 시간은?", a: "N", a_txt: "가능한 자주 보고 싶다.", b: "R", b_txt: "보고 싶어도 나만의 시간도 꼭 필요하다." },
+        { section: 2, q: "연인의 일상 공유?", a: "N", a_txt: "서로 일상·스케줄을 공유하는 게 중요하다.", b: "R", b_txt: "굳이 모든 일상을 공유할 필요는 없다." },
+        { section: 2, q: "상대가 바빠서 연락이 안 될 때?", a: "N", a_txt: "상대가 바쁘면 섭섭할 때가 있다.", b: "R", b_txt: "상대가 바빠도 그럴 수 있다고 생각한다." },
+        { section: 2, q: "내 삶에서 연애의 비중은?", a: "N", a_txt: "연애가 내 삶에서 큰 비중을 차지한다.", b: "R", b_txt: "연애도 중요하지만 나의 루틴·자유도 필수다." },
 
-        <!-- 4. D / M -->
-        <div class="question">
-          <h2>4️⃣ D / M — Decisive vs Mild</h2>
-          <p class="question-desc">관계에서의 리드/결정 성향</p>
+        // D vs M
+        { section: 3, q: "데이트 장소 결정은?", a: "D", a_txt: "내가 먼저 “여기 가자!” 하고 정한다.", b: "M", b_txt: "상대 의견 먼저 듣고 맞춰가는 편이다." },
+        { section: 3, q: "갈등이 생겼을 때?", a: "D", a_txt: "문제 생기면 바로 해결하려고 움직인다.", b: "M", b_txt: "시간을 두고 차분히 생각한 다음 풀려고 한다." },
+        { section: 3, q: "데이트 일정은?", a: "D", a_txt: "계획 짜는 걸 즐기고 주도한다.", b: "M", b_txt: "계획보단 자연스러운 흐름을 선호한다." },
+        { section: 3, q: "의견 충돌 시?", a: "D", a_txt: "내 의견을 분명히 말하는 편이다.", b: "M", b_txt: "웬만하면 양보하거나 부드럽게 조율한다." },
+        { section: 3, q: "새로운 데이트 코스는?", a: "D", a_txt: "새로운 곳·경험을 먼저 제안하는 편", b: "M", b_txt: "상대가 제안해주면 따라가는 편이 편하다." }
+    ];
 
-          <label class="option">
-            <input type="radio" name="DM" value="D" />
-            <div class="option-box">
-              <span class="badge">D</span>
-              <div class="option-text">
-                <strong>Decisive</strong>
-                <p>데이트 리드, 계획·결정 빨리</p>
-              </div>
-            </div>
-          </label>
+    const answers = new Array(20).fill(null); 
 
-          <label class="option">
-            <input type="radio" name="DM" value="M" />
-            <div class="option-box">
-              <span class="badge">M</span>
-              <div class="option-text">
-                <strong>Mild</strong>
-                <p>상대 맞춤형, 부드럽고 순응적</p>
-              </div>
-            </div>
-          </label>
-        </div>
+    function renderQuiz() {
+        const container = document.getElementById('quiz-container');
+        let currentSection = -1;
 
-        <div class="actions">
-          <button id="submit-btn" class="btn primary">내 연애 유형 보기</button>
-          <button id="reset-btn" class="btn ghost" type="button">다시 하기</button>
-        </div>
-      </section>
+        questions.forEach((q, index) => {
+            if (q.section !== currentSection) {
+                currentSection = q.section;
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'section-title';
+                sectionDiv.innerText = sections[currentSection].title;
+                container.appendChild(sectionDiv);
+            }
 
-      <!-- 결과 영역 -->
-      <section id="result-section" class="result hidden">
-        <p class="result-label">결과</p>
-        <p id="result-code" class="result-code"></p>
-        <p id="result-title" class="result-title"></p>
-        <p id="result-desc" class="result-desc"></p>
-      </section>
-    </main>
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            const title = document.createElement('div');
+            title.className = 'question-title';
+            title.innerText = `${index + 1}. ${q.q}`;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
 
-    <footer class="footer">
-      <p>© 2025 연애 유형 검사</p>
-    </footer>
-  </div>
+            const btnA = document.createElement('button');
+            btnA.className = 'option-btn';
+            btnA.id = `btn-${index}-A`;
+            btnA.innerText = q.a_txt; // 대답 텍스트만 표시
+            btnA.onclick = () => selectOption(index, q.a, 'A');
 
-  <script src="script.js"></script>
+            const btnB = document.createElement('button');
+            btnB.className = 'option-btn';
+            btnB.id = `btn-${index}-B`;
+            btnB.innerText = q.b_txt; // 대답 텍스트만 표시
+            btnB.onclick = () => selectOption(index, q.b, 'B');
+
+            optionsDiv.appendChild(btnA);
+            optionsDiv.appendChild(btnB);
+            card.appendChild(title);
+            card.appendChild(optionsDiv);
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIndex, value, type) {
+        answers[qIndex] = value;
+        document.getElementById(`btn-${qIndex}-A`).classList.remove('selected');
+        document.getElementById(`btn-${qIndex}-B`).classList.remove('selected');
+        document.getElementById(`btn-${qIndex}-${type}`).classList.add('selected');
+    }
+
+    function calculateResult() {
+        if (answers.includes(null)) {
+            alert("아직 선택하지 않은 문항이 있습니다. 모든 질문에 답해주세요!");
+            return;
+        }
+
+        const scores = { F:0, S:0, A:0, C:0, N:0, R:0, D:0, M:0 };
+        answers.forEach(val => {
+            scores[val]++;
+        });
+
+        let resultType = "";
+        resultType += scores.F >= scores.S ? "F" : "S";
+        resultType += scores.A >= scores.C ? "A" : "C";
+        resultType += scores.N >= scores.R ? "N" : "R";
+        resultType += scores.D >= scores.M ? "D" : "M";
+
+        const resultArea = document.getElementById('result-area');
+        const submitBtn = document.getElementById('submit-btn');
+        const typeDisplay = document.getElementById('type-display');
+        const descDisplay = document.getElementById('desc-display');
+
+        submitBtn.style.display = 'none';
+        resultArea.style.display = 'block';
+        typeDisplay.innerText = resultType;
+        descDisplay.innerHTML = generateDescription(resultType);
+        
+        resultArea.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function generateDescription(type) {
+        let desc = "당신은<br><br>";
+        
+        if(type[0] === 'F') desc += "<b>[직진러]</b> 호감이 생기면 빠르게 다가가고, <br>";
+        else desc += "<b>[신중러]</b> 천천히 스며드는 것을 선호하며, <br>";
+
+        if(type[1] === 'A') desc += "<b>[애정폭격기]</b> 사랑 표현이 풍부하고 스킨십을 좋아합니다. <br>";
+        else desc += "<b>[쿨워터]</b> 은근하게 챙겨주며 담백한 연애를 합니다. <br>";
+
+        if(type[2] === 'N') desc += "<b>[껌딱지]</b> 연인과 일상을 공유하며 함께하는 시간이 중요하고, <br>";
+        else desc += "<b>[독립존중]</b> 각자의 시간을 존중하는 성숙한 연애를 지향합니다. <br>";
+
+        if(type[3] === 'D') desc += "<b>[리더형]</b> 데이트를 주도하고 문제를 적극적으로 해결하는 스타일입니다.";
+        else desc += "<b>[배려형]</b> 상대방에게 맞춰주며 갈등을 부드럽게 푸는 스타일입니다.";
+
+        return desc;
+    }
+
+    renderQuiz();
+</script>
+
 </body>
 </html>

@@ -23,7 +23,7 @@ const specialTypes = {
   }
 };
 
-// 각 알파벳별 설명 조각 (기본 설명용)
+// 각 알파벳별 기본 설명 문장
 const letterDesc = {
   F: "빠르게 마음을 표현하고 먼저 움직이는 직진형이에요.",
   S: "상대를 천천히 알아가면서 안정감을 느끼는 타입이에요.",
@@ -39,8 +39,8 @@ function getSelectedValue(name) {
   return document.querySelector(`input[name="${name}"]:checked`);
 }
 
+// 스페셜 타입이 아닐 때, 코드(FAND 같은 것)로 자동 설명 만들어주는 함수
 function buildGenericDescription(code) {
-  // code는 예: "FAND"
   return code
     .split("")
     .map((ch) => letterDesc[ch])
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultTitleEl = document.getElementById("result-title");
   const resultDescEl = document.getElementById("result-desc");
 
-  // 결과 보기 클릭
+  // 결과 보기 버튼 클릭
   submitBtn.addEventListener("click", () => {
     const fs = getSelectedValue("FS");
     const ac = getSelectedValue("AC");
@@ -68,17 +68,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const code = fs.value + ac.value + nr.value + dm.value; // 예: FAND
-    const prettyCode = code.split("").join(" "); // F A N D 형식
+    const prettyCode = code.split("").join(" "); // "F A N D" 형식
 
     let title;
     let desc;
 
     if (specialTypes[code]) {
-      // 미리 정의한 스페셜 타입
+      // 미리 정의해 둔 스페셜 조합이면 그 내용 사용
       title = specialTypes[code].title;
       desc = specialTypes[code].desc;
     } else {
-      // 나머지 조합은 자동으로 설명 생성
+      // 나머지 조합은 자동 설명
       title = `${prettyCode} 타입`;
       desc = buildGenericDescription(code);
     }
@@ -88,11 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
     resultDescEl.textContent = desc;
 
     resultSection.classList.remove("hidden");
-    // 결과까지 스크롤 자연스럽게 내려가기
     resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
-  // 다시 하기 버튼
+  // 다시 하기 버튼 클릭
   resetBtn.addEventListener("click", () => {
     document
       .querySelectorAll('input[type="radio"]')
