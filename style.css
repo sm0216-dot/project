@@ -1,0 +1,174 @@
+/* style.css 파일 시작 */
+
+/* **CSS 변수 선언:** 색상을 재사용하고 쉽게 변경할 수 있게 합니다. */
+:root {
+    --primary-pink: #FFC0CB; /* 메인 핑크 */
+    --accent-red: #FF69B4; /* 강조용 핫핑크 */
+    --background-light: #FFF0F5; /* 연한 배경색 */
+    --text-dark: #333333; /* 기본 글자색 */
+    --text-subtle: #6A6A6A; /* 서브 글자색 */
+    --border-radius-soft: 15px; /* 부드러운 모서리 */
+    --shadow-soft: 0 4px 8px rgba(255, 105, 180, 0.2); /* 은은한 핑크 그림자 */
+}
+
+/* **기본 스타일 리셋 및 설정:** 모든 브라우저에서 일관된 디자인을 위해 필요합니다. */
+* {
+    /* 모든 요소의 여백 및 패딩 계산 방식을 표준화 */
+    box-sizing: border-box; 
+    /* 요소 드래그 시 커서가 바뀌는 것을 방지 (선택 사항) */
+    /* user-select: none; */ 
+}
+
+/* **페이지 전체 스타일:** */
+body {
+    background-color: var(--background-light); /* 연한 핑크 배경 적용 */
+    color: var(--text-dark); /* 기본 글자색 */
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; /* 부드러운 폰트 적용 (나중에 예쁜 웹폰트로 변경 가능) */
+    line-height: 1.6; /* 줄 간격 설정으로 가독성 향상 */
+    margin: 0; /* body의 기본 여백 제거 */
+    padding: 0;
+    min-height: 100vh; /* 뷰포트 높이만큼 최소 높이 설정 */
+    display: flex; /* 내용을 중앙에 배치하기 위해 flex 사용 */
+    flex-direction: column;
+}
+/* **헤더 스타일:** 페이지 상단 배너 */
+header {
+    background-color: var(--primary-pink); /* 핑크색 배경 */
+    color: white; /* 흰색 글자 */
+    padding: 20px 40px;
+    text-align: center;
+    box-shadow: var(--shadow-soft); /* 은은한 그림자로 입체감 부여 */
+    position: sticky; /* 스크롤 시 상단에 고정 */
+    top: 0;
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em; /* 제목 크게 */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* 미세한 그림자로 제목 강조 */
+}
+
+/* **내비게이션 (메뉴) 스타일:** */
+nav ul {
+    list-style: none; /* 목록 기호 제거 */
+    padding: 0;
+    margin-top: 10px;
+    display: flex; /* 가로로 나열 */
+    justify-content: center; /* 가운데 정렬 */
+    gap: 20px; /* 메뉴 항목 간 간격 */
+}
+
+nav a {
+    color: white;
+    text-decoration: none; /* 밑줄 제거 */
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* 부드러운 애니메이션 효과 */
+}
+
+nav a:hover {
+    /* 마우스 오버 시 색상 변경 */
+    background-color: var(--accent-red); 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* 빛나는 효과 */
+}
+/* **메인 영역 스타일:** */
+main {
+    flex-grow: 1; /* 남은 공간을 모두 차지하여 푸터가 하단에 위치하도록 */
+    padding: 40px 20px;
+    max-width: 1200px; /* 최대 너비 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+    width: 100%;
+}
+
+/* **정보 카드 스타일:** 연애 느낌을 살릴 핵심 디자인입니다. */
+.card {
+    background-color: white; /* 흰색 배경 */
+    border: 2px solid var(--primary-pink); /* 핑크색 테두리 */
+    border-radius: var(--border-radius-soft); /* 부드러운 모서리 */
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-soft); /* 은은한 핑크 그림자 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 마우스 오버 시 효과를 위한 애니메이션 설정 */
+}
+
+/* **마우스 오버 효과:** 카드를 살짝 띄우고 그림자를 강조하여 생동감을 줍니다. */
+.card:hover {
+    transform: translateY(-5px); /* Y축으로 5px 살짝 위로 이동 */
+    box-shadow: 0 8px 16px rgba(255, 105, 180, 0.4); /* 그림자 더 진하게 */
+}
+
+.card h2 {
+    color: var(--accent-red); /* 제목을 핫핑크로 강조 */
+    border-bottom: 2px dashed var(--primary-pink); /* 핑크색 점선 밑줄 */
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.8em;
+}
+
+/* **이미지 스타일:** 카드 내의 이미지를 둥글게 처리 */
+.card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 15px;
+    /* 이미지에 미세한 테두리 추가 */
+    border: 3px solid var(--background-light); 
+}
+/* **버튼 스타일:** 로맨틱한 액션 버튼 */
+.button {
+    display: inline-block;
+    background-color: var(--accent-red); /* 핫핑크 배경 */
+    color: white;
+    font-weight: bold;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px; /* 완전한 둥근 모양 */
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase; /* 대문자 처리 */
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+/* **버튼 마우스 오버/클릭 효과:** */
+.button:hover {
+    background-color: #FF1493; /* 더 진한 핑크 (Deep Pink) */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+    /* 클릭 시 살짝 눌리는 듯한 효과 */
+    transform: translateY(2px); 
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+/* **푸터 스타일:** 페이지 하단 정보 */
+footer {
+    background-color: #F8F8FF; /* 연한 파스텔톤 (Ghost White) */
+    color: var(--text-subtle);
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid var(--primary-pink); /* 핑크색 얇은 구분선 */
+    margin-top: 40px;
+    font-size: 0.9em;
+}
+
+footer p {
+    margin: 5px 0;
+}
+/* ======================================= */
+/* ====== 1. 진도율 바 색상 수정 (핑크색) ====== */
+/* ======================================= */
+
+/* (사용자님의 코드에 맞춰 .progress-bar 또는 .progress-fill을 사용하세요) */
+.progress-box {
+    background-color: #ff99aa; /* 연한 벚꽃 핑크색 */
+    /* 진도율이 부드럽게 채워지도록 애니메이션 속성을 유지합니다. */
+}
+
+/* (선택 사항: 진도율 바의 전체 틀 색상을 설정하여 대비를 줄 수 있습니다) */
+.progress-container {
+    background-color: #fce8ee; /* 아주 연한 핑크색 배경 */
+}
