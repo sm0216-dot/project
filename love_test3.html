@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 연애 스타일 테스트</title>
     <link rel="stylesheet" href="style1.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -18,10 +17,128 @@
     </div>
 
     <div id="quiz-container">
-        </div>
+    </div>
 
     <button id="submit-btn" onclick="moveToResult()">결과 확인하기</button>
 </div>
+
+<script>
+    let questions = [
+        // F vs S
+        { q: "누군가 마음에 들 때 나는?", a: "F", a_txt: "먼저 연락하거나 표현해본 적이 많다.", b: "S", b_txt: "먼저 다가가기보다 상대 움직임을 기다린다." },
+        { q: "새로운 관계, 친해지는 속도는?", a: "F", a_txt: "느낌 오면 금방 친해진다.", b: "S", b_txt: "편해지기까지 시간이 꽤 걸린다." },
+        { q: "호감이 생기면?", a: "F", a_txt: "티가 빠르게 드러난다.", b: "S", b_txt: "티가 나도 숨기거나 조심한다." },
+        { q: "소개팅이나 첫 만남 후에는?", a: "F", a_txt: "바로 다음 만남을 잡고 싶다.", b: "S", b_txt: "좀 더 분위기 보고 조심스럽게 연락한다." },
+        { q: "썸 단계에서 나는?", a: "F", a_txt: "나를 먼저 보여주는 편이다.", b: "S", b_txt: "신중하게 알아가며 천천히 연다." },
+
+        // A vs C
+        { q: "평소 감정 표현은?", a: "A", a_txt: "좋아하면 말/행동으로 자주 표현한다.", b: "C", b_txt: "표현은 적은 편이고 은근한 행동으로 보여준다." },
+        { q: "스킨십에 대한 생각은?", a: "A", a_txt: "스킨십이 자연스럽고 편하다.", b: "C", b_txt: "스킨십은 관계가 안정돼야 편해진다." },
+        { q: "연락 스타일은?", a: "A", a_txt: "자주 안부 묻고 대화 이어가는 걸 좋아한다.", b: "C", b_txt: "필요한 순간·할 말 있을 때만 연락한다." },
+        { q: "연인에게 애정 표현은?", a: "A", a_txt: "칭찬·애정 말을 자주 한다.", b: "C", b_txt: "말보다 행동으로 챙겨주는 타입이다." },
+        { q: "감정 변화가 생길 때?", a: "A", a_txt: "기쁘면 티나고 슬프면 티나고 변화가 보인다.", b: "C", b_txt: "감정이 있어도 크게 드러내지 않는다." },
+
+        // N vs R
+        { q: "연락 빈도에 대해?", a: "N", a_txt: "매일 꾸준한 연락이 안정감을 준다.", b: "R", b_txt: "연락 텀이 좀 있어도 불안하지 않다." },
+        { q: "함께하는 시간은?", a: "N", a_txt: "가능한 자주 보고 싶다.", b: "R", b_txt: "보고 싶어도 나만의 시간도 꼭 필요하다." },
+        { q: "연인의 일상 공유?", a: "N", a_txt: "서로 일상·스케줄을 공유하는 게 중요하다.", b: "R", b_txt: "굳이 모든 일상을 공유할 필요는 없다." },
+        { q: "상대가 바빠서 연락이 안 될 때?", a: "N", a_txt: "상대가 바쁘면 섭섭할 때가 있다.", b: "R", b_txt: "상대가 바빠도 그럴 수 있다고 생각한다." },
+        { q: "내 삶에서 연애의 비중은?", a: "N", a_txt: "연애가 내 삶에서 큰 비중을 차지한다.", b: "R", b_txt: "연애도 중요하지만 나의 루틴·자유도 필수다." },
+
+        // D vs M
+        { q: "데이트 장소 결정은?", a: "D", a_txt: "내가 먼저 “여기 가자!” 하고 정한다.", b: "M", b_txt: "상대 의견 먼저 듣고 맞춰가는 편이다." },
+        { q: "갈등이 생겼을 때?", a: "D", a_txt: "문제 생기면 바로 해결하려고 움직인다.", b: "M", b_txt: "시간을 두고 차분히 생각한 다음 풀려고 한다." },
+        { q: "데이트 일정은?", a: "D", a_txt: "계획 짜는 걸 즐기고 주도한다.", b: "M", b_txt: "계획보단 자연스러운 흐름을 선호한다." },
+        { q: "의견 충돌 시?", a: "D", a_txt: "내 의견을 분명히 말하는 편이다.", b: "M", b_txt: "웬만하면 양보하거나 부드럽게 조율한다." },
+        { q: "새로운 데이트 코스는?", a: "D", a_txt: "새로운 곳·경험을 먼저 제안하는 편", b: "M", b_txt: "상대가 제안해주면 따라가는 편이 편하다." }
+    ];
+
+    const answers = new Array(20).fill(null); 
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function renderQuiz() {
+        shuffleArray(questions);
+        const container = document.getElementById('quiz-container');
+        
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            const title = document.createElement('div');
+            title.className = 'question-title';
+            title.innerText = `${index + 1}. ${q.q}`;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            const btnA = document.createElement('button');
+            btnA.className = 'option-btn';
+            btnA.id = `btn-${index}-A`;
+            btnA.innerText = q.a_txt;
+            btnA.onclick = () => selectOption(index, q.a, 'A');
+
+            const btnB = document.createElement('button');
+            btnB.className = 'option-btn';
+            btnB.id = `btn-${index}-B`;
+            btnB.innerText = q.b_txt;
+            btnB.onclick = () => selectOption(index, q.b, 'B');
+
+            optionsDiv.appendChild(btnA);
+            optionsDiv.appendChild(btnB);
+            card.appendChild(title);
+            card.appendChild(optionsDiv);
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIndex, value, type) {
+        answers[qIndex] = value;
+        document.getElementById(`btn-${qIndex}-A`).classList.remove('selected');
+        document.getElementById(`btn-${qIndex}-B`).classList.remove('selected');
+        document.getElementById(`btn-${qIndex}-${type}`).classList.add('selected');
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const count = answers.filter(val => val !== null).length;
+        const display = document.getElementById('progress-display');
+        display.innerText = `진행률: (${count} / 20)`;
+        
+        if(count === 20) {
+            display.style.backgroundColor = '#ff6b81';
+            display.style.color = 'white';
+            display.innerText = "모든 질문 완료! (20 / 20)";
+        }
+    }
+
+    function moveToResult() {
+        if (answers.includes(null)) {
+            alert("아직 선택하지 않은 문항이 있습니다. 모든 질문에 답해주세요!");
+            return;
+        }
+
+        const scores = { F:0, S:0, A:0, C:0, N:0, R:0, D:0, M:0 };
+        answers.forEach(val => {
+            scores[val]++;
+        });
+
+        let resultType = "";
+        resultType += scores.F >= scores.S ? "F" : "S";
+        resultType += scores.A >= scores.C ? "A" : "C";
+        resultType += scores.N >= scores.R ? "N" : "R";
+        resultType += scores.D >= scores.M ? "D" : "M";
+
+        window.location.href = `result.html?mbti=${resultType}`;
+    }
+
+    renderQuiz();
+</script>
 
 </body>
 </html>
