@@ -3,7 +3,7 @@
     /* ====== 기본 변수 및 레이아웃 (기존 코드 유지) ====== */
     /* ======================================= */
     :root {
-        --primary-color: #ff6b81; /* 핫핑크 (선택된 답변 색상) */
+        --primary-color: #ff6b81; 
         --secondary-color: #f7f1e3;
         --text-color: #2f3542;
         --bg-color: #ffffff;
@@ -43,14 +43,10 @@
         color: #777;
     }
 
-    /* ======================================= */
-    /* ====== 1. 진도율 박스 색상 수정 (요청 사항 반영) ====== */
-    /* ======================================= */
+    /* ====== 1. 진도율 박스 색상 수정 (핑크색) ====== */
     .progress-box {
         text-align: center;
-        /* 배경색을 핑크색으로 변경 */
         background-color: #fce8ee; 
-        /* 글자색을 primary-color와 동일하게 변경 */
         color: var(--primary-color); 
         padding: 10px;
         border-radius: 10px;
@@ -60,7 +56,6 @@
         position: sticky;
         top: 0;
         z-index: 100;
-        /* 그림자 색상을 핑크색 계열로 변경 */
         box-shadow: 0 2px 5px rgba(255, 107, 129, 0.2); 
     }
 
@@ -100,21 +95,19 @@
         border-color: #ffb6c1;
     }
 
+    /* ====== 옵션 버튼 선택 시 (Selected) 색상 진하게 수정 ====== */
     .option-btn.selected {
-        background-color: var(--primary-color);
+        background-color: #e73045; /* 더 진한 핑크색으로 변경 */
         color: white;
-        border-color: var(--primary-color);
+        border-color: #e73045;
         font-weight: bold;
     }
 
-    /* ======================================= */
-    /* ====== 2. 결과 확인 버튼 색상 수정 (요청 사항 반영) ====== */
-    /* ======================================= */
+    /* ====== 2. 결과 확인 버튼 색상 수정 (연한 핑크) ====== */
     #submit-btn {
         width: 100%;
         padding: 15px;
-        /* primary-color보다 연한 핑크색으로 변경 */
-        background-color: #ffb6c1; 
+        background-color: #ffb6c1; /* 연한 핑크색 */
         color: white;
         border: none;
         border-radius: 10px;
@@ -125,13 +118,13 @@
         transition: background 0.3s;
     }
 
+    /* ====== 결과 확인 버튼 마우스 오버(Hover) 색상 진하게 수정 ====== */
     #submit-btn:hover {
-        /* 마우스 오버 시 연한 핑크보다 살짝 진하게 */
-        background-color: #ff9aa8;
+        background-color: #ff6b81; /* 원래 primary-color와 동일한 진한 핑크 */
     }
     
     /* ======================================= */
-    /* ====== 3. 결과 창 (모달/팝업) 디자인 추가 ====== */
+    /* ====== 3. 결과 창 (모달/팝업) 디자인 ====== */
     /* ======================================= */
 
     /* 모달 배경 (오버레이) */
@@ -199,7 +192,7 @@
     #close-modal-btn {
         padding: 12px 25px;
         background-color: var(--primary-color); 
-        color: rgb(243, 48, 146);
+        color: white;
         border: none;
         border-radius: 10px;
         font-size: 1rem;
