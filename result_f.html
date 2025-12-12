@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>연애 성향 테스트 결과</title>
+
+  <!-- ✅ 외부 CSS 연결 -->
+  <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+<div class="container">
+  <h1>💘 연애 성향 테스트 결과</h1>
+  <p class="intro">당신의 연애 유형을 분석한 결과입니다.</p>
+
+  <p id="result-code" class="result-code"></p>
+  <p id="result-title" class="result-title"></p>
+  <div id="result-desc" class="result-desc"></div>
+  <p id="error-msg" class="error"></p>
+
+  <div class="btn-area">
+    <button class="btn" id="back-btn">다시 테스트하기</button>
+  </div>
+</div>
+
+<script>
+  // (JS 부분은 그대로)
+  const typeInfo = {
+    ...
+  };
+
+  function main() {
+    const params = new URLSearchParams(window.location.search);
+    const rawType = (params.get("mbti") || "").toUpperCase();
+
+    const codeEl = document.getElementById("result-code");
+    const titleEl = document.getElementById("result-title");
+    const descEl = document.getElementById("result-desc");
+    const errEl = document.getElementById("error-msg");
+
+    if (!rawType || !typeInfo[rawType]) {
+      errEl.textContent = "유형 정보를 불러올 수 없습니다. 테스트 페이지에서 다시 시도해주세요.";
+      codeEl.textContent = "";
+      titleEl.textContent = "";
+      descEl.textContent = "";
+      return;
+    }
+
+    const prettyCode = rawType.split("").join(" ");
+
+    codeEl.textContent = prettyCode;
+    titleEl.textContent = typeInfo[rawType].title;
+    descEl.textContent = typeInfo[rawType].desc;
+  }
+
+  document.getElementById("back-btn").addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+
+  main();
+</script>
+</body>
+</html>
